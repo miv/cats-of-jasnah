@@ -21,12 +21,12 @@ const Level = {
 		return value
 	},
 	chance: function() {
-		if (this.operator === 'or') return 0.6 - 0.1 * this.num_atts;
+		if (this.operator === 'или') return 0.6 - 0.1 * this.num_atts;
 		else return 0.4 + 0.1 * this.num_atts;
 	},
 	min: 0,
 	max: 9,
-	operator: 'and',
+	operator: 'и',
 	get_num_adjectives: function(keys) { // no semantic difference, just use adjectives in sentence structure.
 		if (this.num_adjectives !== null) return this.num_adjectives
         return Math.floor(Math.random()*keys.length)
@@ -60,9 +60,9 @@ const Level = {
 	},
 	get_equality_operator: function() {
 		if (this.successor) {
-			return 'would be'
+			return 'будет'
 		} else {
-			return 'are'
+			return ' '
 		}
 	},
 	get_added_num: function() {
@@ -77,52 +77,52 @@ const Level = {
 
 const TOPICS = [
 	{
-		name: 'counting',
+		name: 'счет',
 		stages: [
 			{
-				name: 'little cardinals',
+				name: 'маленькие числа',
 				min: 1,
-				max: 3,
+				max: 5,
 				max_asked_atts: 0,
 				num_atts: 0
 			},
 			{
-				name: 'big cardinals',
+				name: 'большие числа',
 				min: 4,
 				max_asked_atts: 0,
 				num_atts: 0
 			},
 			{
-				name: 'distraction',
+				name: 'отвлечение',
 				min: 1,
 				max: 7,
 				max_asked_atts: 0,
 				num_atts: 1
 			},
 			{
-				name: 'big distraction',
+				name: 'большое отвлечение',
 				min: 1,
 				max_asked_atts: 0,
 				num_atts: 3
 			},
 			{
-				name: 'with zero',
+				name: 'с нулем',
 				max: 2,
 				max_asked_atts: 0,
 				num_atts: 3
 			},
 			{
-				name: 'counting mastery',
+				name: 'экзамен',
 				num_atts: 3,
 				max_asked_atts: 0
 			}
 		]
 	},
 	{
-		name: 'subsets',
+		name: 'подмножества',
 		stages: [
 			{
-				name: 'little subset',
+				name: 'маленькие подмножества',
 				min: 2,
 				max: 3,
 				max_asked_atts: 1,
@@ -130,7 +130,7 @@ const TOPICS = [
 				num_adjectives: 0
 			},
 			{
-				name: 'subset',
+				name: 'подмножества',
 				min: 4,
 				max: 5,
 				max_asked_atts: 1,
@@ -138,7 +138,7 @@ const TOPICS = [
 				num_adjectives: 0
 			},
 			{
-				name: 'big subset',
+				name: 'большие подмножества',
 				min: 4,
 				max: 7,
 				max_asked_atts: 1,
@@ -146,7 +146,7 @@ const TOPICS = [
 				num_adjectives: 0
 			},
 			{
-				name: 'adjectives',
+				name: 'прилагательное',
 				min: 2,
 				max: 7,
 				max_asked_atts: 1,
@@ -154,34 +154,34 @@ const TOPICS = [
 				num_atts: 1  
 			},
 			{
-				name: 'subset distraction',
+				name: 'подмножества с отвлечением',
 				min: 3,
 				max: 5,
 				max_asked_atts: 2,
 				num_atts: 2
 			},
 			{
-				name: 'big subset distraction',
+				name: 'большие подмножества с отвлечением',
 				min: 4,
 				max_asked_atts: 2
 			},
 			{
-				name: 'subset with zero',
+				name: 'подмножеества с нулем',
 				max: 2,
 				max_asked_atts: 1,
 				num_atts: 1
 			},
 			{
-				name: 'subset mastery',
+				name: 'экзамен',
 				max_asked_atts: 3
 			}
 		]
 	},
 	{
-		name: 'operators',
+		name: 'операции',
 		stages: [
 			{
-				name: 'little negation', // how many cats are not A
+				name: 'маленькое вычитание', // how many cats are not A
 				negation: true,
 				min: 2,
 				max: 4,
@@ -189,61 +189,61 @@ const TOPICS = [
 				// returns whether a given value is to be negated.
 			},
 			{
-				name: 'big negation', // how many cats are not A
+				name: 'большое вычитание', // how many cats are not A
 				negation: true,
 				num_atts: 2
 				// returns whether a given value is to be negated.
 			},
 			{
-				name: 'intersection', // how many A cats are B
+				name: 'пересечение', // how many A cats are B
 				max_asked_atts: 2,
 				num_atts: 2,
 				min: 2, max: 5,
 				num_adjectives: 1
 			},
 			{
-				name: 'conjunction', // how many A cats are B
+				name: 'коньюкция', // how many A cats are B
 				max_asked_atts: 2,
 				num_atts: 2,
 				min: 2, max: 5,
 				num_adjectives: 0
 			},
 			{
-				name: 'union',
+				name: 'объединение',
 				max_asked_atts: 2,
 				num_atts: 2,
 				min: 2, max: 5,
 				num_adjectives: 0,
-				operator: 'or'
+				operator: 'или'
 			},
 			{
-				name: 'disjunction',
+				name: 'дизьюнкция',
 				max_asked_atts: 2,
 				num_atts: 2,
 				min: 2, max: 5,
 				num_adjectives: 0,
-				operator: 'or'
+				operator: 'или'
 			},
 			{
-				name: 'triple intersection', // how many A cats are B and C
+				name: 'тройное пересечение', // how many A cats are B and C
 				max_asked_atts: 3,
 				num_atts: 3,
 				min: 4, max: 7,
 				num_adjectives: 1
 			},
 			{
-				name: 'operator mastery', // how many A cats are B and C
+				name: 'экзамеен', // how many A cats are B and C
 				max_asked_atts: 3,
 				num_atts: 3,
 				min: 2, max: 9,
 				num_adjectives: 0,
-				operator: 'or',
+				operator: 'или',
 				negation: [false, false, true]
 			}
 		]
 	},
 	{
-		name: 'arithmetic group',
+		name: 'арифметические группы',
 		stages: [
 			{
 				name:'successor', // if we had another, how many cats would there be

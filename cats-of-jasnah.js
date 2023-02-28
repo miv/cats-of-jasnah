@@ -1,6 +1,17 @@
 const COLOR_ATTS = ['red', 'blue', 'yellow', 'purple']
 const MOTION_ATTS = ['bouncing', 'spinning']
 const ANIMAL_ATTS = ['ducks']
+
+const ATTR_LANG_MAP = {
+  'red': 'красных',
+  'blue': 'голубых',
+  'yellow': 'желтых',
+  'purple': 'фиолетовых',
+  'bouncing': 'прыгающих',
+  'spinning': 'крутящихся',
+  'ducks': 'уток'
+}
+
 const ALL_ATTS = COLOR_ATTS.concat(MOTION_ATTS).concat(ANIMAL_ATTS)
 let ATTS
 let cur_atts = {}
@@ -8,7 +19,7 @@ let clue
 let stage
 
 const pluralize_cat = function(count) {
-  return Math.abs(count) > 1 ? 'cats' : 'cat';
+  return Math.abs(count) > 1 ? 'кошек' : 'кошка';
 };
 
 const pick_rand = function(seq) {
@@ -54,7 +65,7 @@ const permute_atts = function() {
 const speak = function(text, opts) {
   opts = opts || {}
   $('p.clue').html(text + "&#x1f508;")
-  responsiveVoice.speak(text, 'US English Female', opts)
+  responsiveVoice.speak(text, 'Russian Female', opts)
 }
 
 const draw_stars = function() {
@@ -67,7 +78,7 @@ var make_cats = function() {
   stage.set_avail_atts()
   permute_atts()
   is_reversed = Math.random() < 0.5
-  let text = 'how many '
+  let text = 'Сколько '
   const keys = Object.keys(cur_atts)
   const prefix_pos = stage.get_num_adjectives(keys)
   const prefix_keys = keys.slice(0, prefix_pos)
@@ -75,38 +86,38 @@ var make_cats = function() {
     let prefix_words = []
     for (let att in prefix_keys) {
       prefix_words.push(
-        (cur_atts[prefix_keys[att]] ? '' : 'non-') + prefix_keys[att]
+        (cur_atts[prefix_keys[att]] ? '' : 'не-') + ATTR_LANG_MAP[prefix_keys[att]]
       )
     }
     text += prefix_words.join(', ') + ' '
     // ducks is just 'duck' when used as an adjective
-    text = text.replace('ducks', 'duck')
+    text = text.replace('уток', 'утка')
   }
   postfix_keys = keys.slice(prefix_pos)
   if (postfix_keys.length) {
-    text += 'cats ' + stage.get_equality_operator() + ' '
+    text += 'кошек ' + stage.get_equality_operator() + ' '
 
     let items = []
     for (let att in postfix_keys) {
       items.push(
-        (cur_atts[postfix_keys[att]] ? '' : 'not ') + postfix_keys[att]
+        (cur_atts[postfix_keys[att]] ? '' : 'не ') + ATTR_LANG_MAP[postfix_keys[att]]
       )
     }
-    text += items.join(' ' + stage.operator + ' are ')
+    text += items.join(' ' + stage.operator + '  ')
   } else {
-    text += 'cats ' + stage.get_equality_operator() + ' here'
+    text += 'кошек ' + stage.get_equality_operator() + ' тут'
   }
   if (stage.successor) {
     // alternate wording
 	  if (Math.random() > .5) {
-		  text += ' if we had ' + Math.abs(stage.successor) + ' '
-      + (stage.successor > 0 ? 'more ' : 'less ')
+		  text += ' если у нас было ' + Math.abs(stage.successor) + ' '
+      + (stage.successor > 0 ? 'больше ' : 'меньше ')
       + (ATTS.length ? ATTS[0] + ' ' + pluralize_cat(stage.successor): '')
 	  } else {
-		  text += ' if ' + Math.abs(stage.successor) + ' '
+		  text += ' если ' + Math.abs(stage.successor) + ' '
       + (stage.successor > 0
-        ? 'more ' + (ATTS.length ? ATTS[0] + ' ' + pluralize_cat(stage.successor) + ' ' : '') + 'came'
-        : (ATTS.length ? ATTS[0] + ' ' + pluralize_cat(stage.successor) + ' ' : '') + 'went away')
+        ? 'больше ' + (ATTS.length ? ATTS[0] + ' ' + pluralize_cat(stage.successor) + ' ' : '') + 'кришло'
+        : (ATTS.length ? ATTS[0] + ' ' + pluralize_cat(stage.successor) + ' ' : '') + 'ушло')
 	  }
   }
  
@@ -182,13 +193,13 @@ $('body').keyup(function(e) {
 
 const get_answer = function() {
   let set = $('svg:gt(0)').filter(function(svg) {
-    let match = stage.operator === 'and';
+    let match = stage.operator === 'и';
     for (let att in cur_atts) {
 	  // consider negation
 	  let in_set = (cur_atts[att] ? $(this).hasClass(att) : !$(this).hasClass(att));	
 	  // conjunction / disjunction
       match =
-        stage.operator === 'and' ? (match && in_set) : (match || in_set)
+        stage.operator === 'и' ? (match && in_set) : (match || in_set)
       
     }
     return match
@@ -202,6 +213,18 @@ const get_answer = function() {
   return set
 }
 
+const numToWordMap = {
+  1: 'одна',
+  2: 'две',
+  3: 'три',
+  4: 'четыре',
+  5: 'пять',
+  6: 'шесть',
+  7: 'семь',
+  8: 'восемь',
+  9: 'девять'
+}
+
 const submit = function(value) {
   let answer_set = get_answer()
   answer = answer_set.length
@@ -212,9 +235,9 @@ const submit = function(value) {
   if (value === answer) {
 	stage.add_star()
 	//yay()
-	let congrats = "That's right, " + answer + '.'
+	let congrats = "Все верно, " + numToWordMap[answer] + '.'
 	if (stage.get_stars() == 5) {
-	  congrats += " You're on a Winning Streak!"
+	  congrats += " Ты умница!"
 	  $('.trophy').show()
 	}
     speak(congrats, {
@@ -229,7 +252,7 @@ const submit = function(value) {
       }
     })
   } else {
-    speak("Good try, but that's wrong.", {
+    speak("Хорошая попытка, но это не верно.", {
       onend: function() {
 		stage.lose_stars()
 		draw_stars()
