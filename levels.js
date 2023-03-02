@@ -232,7 +232,7 @@ const TOPICS = [
 				num_adjectives: 1
 			},
 			{
-				name: 'экзамеен', // how many A cats are B and C
+				name: 'экзамен', // how many A cats are B and C
 				max_asked_atts: 3,
 				num_atts: 3,
 				min: 2, max: 9,
@@ -246,7 +246,7 @@ const TOPICS = [
 		name: 'арифметические группы',
 		stages: [
 			{
-				name:'successor', // if we had another, how many cats would there be
+				name:'добавление', // if we had another, how many cats would there be
 				successor: 1,
 				num_adjectives: 0,
 				max_asked_atts: 0,
@@ -254,7 +254,7 @@ const TOPICS = [
 				num_atts: 0
 			},
 			{
-				name:'successor successor', // if we had two more, how many cats would there be?
+				name:'добавление добавление', // if we had two more, how many cats would there be?
 				successor: 2,
 				num_adjectives: 0,
 				max_asked_atts: 0,
@@ -262,7 +262,7 @@ const TOPICS = [
 				max: 7
 			},
 			{
-				name:'addition', // if we had two more, how many cats would there be?
+				name:'сложение', // if we had two more, how many cats would there be?
 				addition: 4,
 				num_adjectives: 0,
 				max_asked_atts: 0,
@@ -270,7 +270,7 @@ const TOPICS = [
 				max: 6
 			},
 			{
-				name:'inverse successor', // if we had two more, how many cats would there be?
+				name:'обратное добавление', // if we had two more, how many cats would there be?
 				successor: -1,
 				num_adjectives: 0,
 				max_asked_atts: 0,
@@ -278,7 +278,7 @@ const TOPICS = [
 				min: 1
 			},
 			{
-				name:'subtraction', // if we had two more, how many cats would there be?
+				name:'вычитание', // if we had two more, how many cats would there be?
 				addition: -4,
 				num_adjectives: 0,
 				max_asked_atts: 0,
@@ -286,7 +286,7 @@ const TOPICS = [
 				min: 4
 			},
 			{
-        name: 'successor subset', // if we had another pink cats, how many pink cats would there be?
+        name: 'добавление с подмножествами', // if we had another pink cats, how many pink cats would there be?
         successor: 1,
         num_adjectives: 0,
         max_asked_atts: 1,
@@ -294,7 +294,7 @@ const TOPICS = [
         max: 8
       },
       {
-        name: 'addition subset', // if we had two more pink cats, how many pink cats would there be?
+        name: 'прибавление с подмножествами', // if we had two more pink cats, how many pink cats would there be?
         addition: 4,
         num_adjectives: 0,
         max_asked_atts: 1,
@@ -302,7 +302,7 @@ const TOPICS = [
         max: 5
       },
       {
-        name: 'subtraction subset', // if we had two less pink cats, how many cats would there be?
+        name: 'вычитание с подмножествами', // if we had two less pink cats, how many cats would there be?
         addition: -4,
         num_adjectives: 0,
         max_asked_atts: 1,

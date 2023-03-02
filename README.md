@@ -1,3 +1,7 @@
+# Форк с русской локализацей
+
+[Играть тут](https://miv.github.io/cats-of-jasnah)
+
 # cats-of-jasnah
 Cats of Jasnah, a web based game for learning categories and logic
 

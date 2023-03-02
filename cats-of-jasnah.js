@@ -19,7 +19,16 @@ let clue
 let stage
 
 const pluralize_cat = function(count) {
-  return Math.abs(count) > 1 ? 'кошек' : 'кошка';
+  const cnt = Math.abs(count);
+  if (Math.floor(cnt/5) == 0) {
+    return "кошек"
+  }
+
+  if (Math.floor(cnt/3) == 0) {
+    return "кошки"
+  }
+
+  return "кошка"
 };
 
 const pick_rand = function(seq) {
@@ -110,14 +119,14 @@ var make_cats = function() {
   if (stage.successor) {
     // alternate wording
 	  if (Math.random() > .5) {
-		  text += ' если у нас было ' + Math.abs(stage.successor) + ' '
+		  text += ' если у нас было бы на ' + Math.abs(stage.successor) + ' '
       + (stage.successor > 0 ? 'больше ' : 'меньше ')
-      + (ATTS.length ? ATTS[0] + ' ' + pluralize_cat(stage.successor): '')
+      + (ATTS.length ? ATTR_LANG_MAP[ATTS[0]] + ' ' + pluralize_cat(stage.successor): '')
 	  } else {
-		  text += ' если ' + Math.abs(stage.successor) + ' '
+		  text += ' если на ' + Math.abs(stage.successor) + ' '
       + (stage.successor > 0
-        ? 'больше ' + (ATTS.length ? ATTS[0] + ' ' + pluralize_cat(stage.successor) + ' ' : '') + 'кришло'
-        : (ATTS.length ? ATTS[0] + ' ' + pluralize_cat(stage.successor) + ' ' : '') + 'ушло')
+        ? 'больше ' + (ATTS.length ? ATTR_LANG_MAP[ATTS[0]] + ' ' + pluralize_cat(stage.successor) + ' ' : '') + 'пришло'
+        : (ATTS.length ? ATTR_LANG_MAP[ATTS[0]] + ' ' + pluralize_cat(stage.successor) + ' ' : '') + 'ушло')
 	  }
   }
  
