@@ -223,6 +223,7 @@ const get_answer = function() {
 }
 
 const numToWordMap = {
+  0: 'ноль',
   1: 'одна',
   2: 'две',
   3: 'три',
